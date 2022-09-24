@@ -82,18 +82,21 @@ export default function Navbar() {
         <Box sx={{ overflow: "auto" }}>
           <ClickAwayListener onClickAway={() => setOpen(false)}>
             <List>
-              {["Inbox", "Starred", "Send email", "Drafts"].map(
-                (text, index) => (
-                  <ListItem key={text} disablePadding>
-                    <ListItemButton>
-                      {/* <ListItemIcon>
+              {[
+                "Actividades locales",
+                "Actividades europeas",
+                "Quienes somos",
+                "Contacto",
+              ].map((text, index) => (
+                <ListItem key={text} disablePadding>
+                  <ListItemButton>
+                    {/* <ListItemIcon>
                     {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                   </ListItemIcon> */}
-                      <ListItemText primary={text} />
-                    </ListItemButton>
-                  </ListItem>
-                )
-              )}
+                    <ListItemText primary={text} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
             </List>
           </ClickAwayListener>
         </Box>
