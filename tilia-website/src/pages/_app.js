@@ -3,6 +3,7 @@ import { ThemeProvider, CssBaseline } from "@mui/material";
 import { theme } from "../styles/themes/theme";
 import createEmotionCache from "../utils/createEmotionCache";
 import { CacheProvider } from "@emotion/react";
+import { LenguageContextProvider } from "../context/LanguageContext";
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -13,10 +14,12 @@ function MyApp({
 }) {
   return (
     <CacheProvider value={emotionCache}>
-      <ThemeProvider theme={theme}>
-        {/* <CssBaseline /> */}
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <LenguageContextProvider>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </LenguageContextProvider>
     </CacheProvider>
   );
 }
