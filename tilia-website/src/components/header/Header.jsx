@@ -1,7 +1,9 @@
 import { Button, Grid, Typography } from "@mui/material";
 import header from "../../../public/assets/images/HEADER.png";
+import useLenguageContext from "../../context/LanguageContext";
 
 export default function Header() {
+  const { language } = useLenguageContext();
   return (
     <Grid
       container
@@ -13,7 +15,7 @@ export default function Header() {
         // width: "100%",
         paddingTop: "8rem",
         marginInline: 0,
-        paddingLeft: "15rem",
+        paddingLeft: "10rem",
         paddingBottom: "4rem",
       }}>
       <Grid item style={{ width: "40rem" }}>
@@ -39,7 +41,7 @@ export default function Header() {
           convivencia entre personas.
         </Typography>
         <Button size='large' variant='contained'>
-          Descubre más
+          {language === "ES" ? "Descubre más" : "Show more"}
         </Button>
       </Grid>
     </Grid>

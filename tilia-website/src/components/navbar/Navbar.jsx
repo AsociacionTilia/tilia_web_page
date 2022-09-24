@@ -2,25 +2,39 @@ import {
   AppBar,
   Box,
   ClickAwayListener,
-  Divider,
   Drawer,
   Grid,
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
   ListItemText,
-  Paper,
   Toolbar,
   Typography,
 } from "@mui/material";
-import Image from "next/image";
-import logoLight from "../../../public/assets/images/logo_img_light.png";
 import { Cross as Hamburger } from "hamburger-react";
+import Image from "next/image";
+import { useEffect } from "react";
 import { useState } from "react";
+import ReactFlagsSelect from "react-flags-select";
+import logoLight from "../../../public/assets/images/logo_img_light.png";
+import useLenguageContext from "../../context/LanguageContext";
+import styles from "./Navbar.module.css";
 
 export default function Navbar() {
   const [isOpen, setOpen] = useState(false);
+  const { language, handleLanguageSelection } = useLenguageContext();
+
+  // useEffect(() => {
+  //   let selected = localStorage.getItem("selectedLanguage");
+  //   if (selected) {
+  //     setLanguage(selected);
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    console.log("LANG: ", language);
+  }, [language]);
+
   const drawerWidth = 240;
   return (
     <>
@@ -55,9 +69,39 @@ export default function Navbar() {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={1} justifyContent='flex-end'>
-            <Box width={48} sx={{ marginLeft: "auto" }}>
-              <Hamburger size={24} rounded toggled={isOpen} toggle={setOpen} />
+
+          <Grid item xs={2} justifyContent='flex-end'>
+            <Box
+              width={"auto"}
+              sx={{
+                marginLeft: "auto",
+                display: "flex",
+                justifyContent: "flex-end",
+              }}>
+              <div>
+                <ReactFlagsSelect
+                  countries={["ES", "GB"]}
+                  customLabels={{
+                    GB: "",
+                    ES: "",
+                  }}
+                  showSecondarySelectedLabel={false}
+                  showSelectedLabel={false}
+                  showOptionLabel={false}
+                  placeholder={false}
+                  selected={language}
+                  onSelect={(code) => handleLanguageSelection(code)}
+                  selectButtonClassName={styles.language_selector}
+                />
+              </div>
+              <div>
+                <Hamburger
+                  size={24}
+                  rounded
+                  toggled={isOpen}
+                  toggle={setOpen}
+                />
+              </div>
             </Box>
           </Grid>
         </Grid>
@@ -65,7 +109,7 @@ export default function Navbar() {
       {/*  */}
       <Drawer
         anchor='right'
-        hideBackdrop
+        // hideBackdrop
         elevation={1}
         open={isOpen}
         sx={{
@@ -82,21 +126,34 @@ export default function Navbar() {
         <Box sx={{ overflow: "auto" }}>
           <ClickAwayListener onClickAway={() => setOpen(false)}>
             <List>
-              {[
-                "Actividades locales",
-                "Actividades europeas",
-                "Quienes somos",
-                "Contacto",
-              ].map((text, index) => (
-                <ListItem key={text} disablePadding>
-                  <ListItemButton>
-                    {/* <ListItemIcon>
+              {language === "ES"
+                ? [
+                    "Actividades locales",
+                    "Actividades europeas",
+                    "Quienes somos",
+                    "Contacto",
+                  ].map((text, index) => (
+                    <ListItem key={text} disablePadding>
+                      <ListItemButton>
+                        <ListItemText primary={text} />
+                      </ListItemButton>
+                    </ListItem>
+                  ))
+                : [
+                    "Local activities",
+                    "European activities",
+                    "Who we are",
+                    "Contact",
+                  ].map((text, index) => (
+                    <ListItem key={text} disablePadding>
+                      <ListItemButton>
+                        {/* <ListItemIcon>
                     {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                   </ListItemIcon> */}
-                    <ListItemText primary={text} />
-                  </ListItemButton>
-                </ListItem>
-              ))}
+                        <ListItemText primary={text} />
+                      </ListItemButton>
+                    </ListItem>
+                  ))}
             </List>
           </ClickAwayListener>
         </Box>
