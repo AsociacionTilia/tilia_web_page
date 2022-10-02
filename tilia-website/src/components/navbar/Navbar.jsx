@@ -18,11 +18,13 @@ import { useState } from "react";
 import ReactFlagsSelect from "react-flags-select";
 import logoLight from "../../../public/assets/images/logo_img_light.png";
 import useLenguageContext from "../../context/LanguageContext";
+import useWindowSize from "../../hooks/useWindoowSize";
 import styles from "./Navbar.module.css";
 
 export default function Navbar() {
   const [isOpen, setOpen] = useState(false);
   const { language, handleLanguageSelection } = useLenguageContext();
+  const windowSize = useWindowSize();
 
   // useEffect(() => {
   //   let selected = localStorage.getItem("selectedLanguage");
@@ -58,11 +60,20 @@ export default function Navbar() {
             }}>
             <Grid container style={{ placeItems: "center" }}>
               <Grid item style={{ paddingTop: "0.2rem" }}>
-                <Image src={logoLight} alt='logo' height={34} width={34} />
+                <Image
+                  src={logoLight}
+                  alt='logo'
+                  height={windowSize.width <= 767 ? 30 : 34}
+                  width={windowSize.width <= 767 ? 30 : 34}
+                />
               </Grid>
               <Grid
                 item
-                style={{ placeItems: "center", paddingLeft: "0.8rem" }}>
+                style={{
+                  placeItems: "center",
+                  paddingLeft: "0.8rem",
+                  display: windowSize.width <= 767 ? "none" : "grid",
+                }}>
                 <Typography variant='body1' sx={{ fontWeight: "bold" }}>
                   Asociación Tilia
                 </Typography>

@@ -1,0 +1,12 @@
+.card {
+  transform-origin: center;
+  transition: 200ms ease-in-out;
+}
+
+.card:hover {
+  scale: 1.05;
+}
+
+.card:not(:hover) {
+  opacity: 0.9;
+}

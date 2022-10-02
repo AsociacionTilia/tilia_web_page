@@ -4,6 +4,13 @@
   block-size: border-block;
 }
 
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
 ::-webkit-scrollbar {
   width: 5px;
   position: absolute;

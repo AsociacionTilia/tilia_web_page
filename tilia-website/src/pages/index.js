@@ -10,6 +10,7 @@ import CardsSection from "../components/section/cards_section/CardsSection";
 
 export default function Home() {
   const { language } = useLenguageContext();
+
   return (
     <>
       <Navbar />
